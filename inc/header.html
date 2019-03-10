@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" class="has-navbar-fixed-top">
+<head>
+	<meta charset="UTF-8">
+	<title>
+		<?php
+			if (isset($page_title)) {
+				echo $page_title.' - ';
+			} else {
+				echo "";
+			}
+		 ?>
+		 Black Peppa</title>
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+	<link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
+</head>
+<body class="sticky" >
+	<div class="bg" style="background-image: url('../img/<?php if(isset($_SESSION['user_id'])){ echo $_SESSION['bg']; }?>.jpg');"></div>
+	<header class="header">
+		<nav class="navbar is-dark is-fixed-top">
+			<div class="container">
+				<div class="navbar-brand">
+					<a href="#" class="navbar-item"><img src="img/bp_logo.png" alt=""></a>
+					<a role="button" id="nav-toggle" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+					  <span aria-hidden="true"></span>
+					  <span aria-hidden="true"></span>
+					  <span aria-hidden="true"></span>
+					</a>
+				</div>
+				<div id="nav-menu" class="navbar-menu" >
+					<?php 
+						if (isset($_SESSION['user_id'])) {
+							echo "
+							<div class='navbar-start'>
+								<a href='/profile' class='navbar-item'><span class='icon is-hidden-touch has-text-white'><i class='fas fa-user-circle'></i></span> Mi Perfil</a>
+								<a href='/add_task' class='navbar-item'><span class='icon is-hidden-touch has-text-white'><i class='fas fa-plus-square'></i></span> Añadir Tarea</a>
+								<a href='/tasks' class='navbar-item'><span class='icon is-hidden-touch has-text-white'><i class='fas fa-tasks'></i></span> Todas las Tareas</a>
+								<a href='/search' class='navbar-item'><span class='icon is-hidden-touch has-text-white'><i class='fas fa-search'></i></span> Buscar</a>
+							</div>
+							<div class='navbar-end'>";
+							echo "<div class='navbar-item'>Hola, ".$_SESSION['first_name']."</div>";
+							echo "<a class='navbar-item' href='/logout'><span class='icon is-hidden-touch has-text-white'><i class='fas fa-sign-out-alt'></i></span>Cerrar Sesión</a>";
+						} else {
+							echo "<div class='navbar-end'><a class='navbar-item' href='/login'><span class='icon is-hidden-touch has-text-white'><i class='fas fa-sign-in-alt'></i></span>Iniciar Sesión</a></div>";
+						}?>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<script>
+		(function() {
+
+			var hamburger = {
+				navToggle: document.getElementById('nav-toggle'),
+				nav: document.getElementById('nav-menu'),
+
+				doToggle: function(e) {
+					e.preventDefault();
+					this.nav.classList.toggle('expanded');
+				}
+			};
+
+			hamburger.navToggle.addEventListener('click', function(e) { hamburger.doToggle(e); });
+
+		}());
+	</script>
